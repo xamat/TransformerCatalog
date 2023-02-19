@@ -194,6 +194,17 @@ Zhengyan Zhang, Xu~Han, Zhiyuan Liu, Xin Jiang, Maosong Sun, and Qun Liu.
 \newblock Ernie: Enhanced language representation with informative entities.
 \newblock {\em arXiv preprint arXiv:1905.07129}, 2019.
 
+\bibitem{chung2022flan}
+Hyung~Won Chung, Le~Hou, Shayne Longpre, Barret Zoph, Yi~Tay, William Fedus,
+  Yunxuan Li, Xuezhi Wang, Mostafa Dehghani, Siddhartha Brahma, Albert Webson,
+  Shixiang~Shane Gu, Zhuyun Dai, Mirac Suzgun, Xinyun Chen, Aakanksha
+  Chowdhery, Alex Castro-Ros, Marie Pellat, Kevin Robinson, Dasha Valter,
+  Sharan Narang, Gaurav Mishra, Adams Yu, Vincent Zhao, Yanping Huang, Andrew
+  Dai, Hongkun Yu, Slav Petrov, Ed~H. Chi, Jeff Dean, Jacob Devlin, Adam
+  Roberts, Denny Zhou, Quoc~V. Le, and Jason Wei.
+\newblock Scaling instruction-finetuned language models.
+\newblock {\em arXiv preprint arXiv:2210.11416}, 2022.
+
 \bibitem{alayrac2022flamingo}
 Jean-Baptiste Alayrac, Jeff Donahue, Pauline Luc, Antoine Miech, Iain Barr,
   Yana Hasson, Karel Lenc, Arthur Mensch, Katie Millican, Malcolm Reynolds,

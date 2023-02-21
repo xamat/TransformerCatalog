@@ -351,6 +351,20 @@ Jingqing Zhang, Yao Zhao, Mohammad Saleh, and Peter Liu.
 \newblock In {\em International Conference on Machine Learning}, pages
   11328--11339. PMLR, 2020.
 
+\bibitem{brohan2022rt}
+Anthony Brohan, Noah Brown, Justice Carbajal, Yevgen Chebotar, Joseph Dabis,
+  Chelsea Finn, Keerthana Gopalakrishnan, Karol Hausman, Alex Herzog, Jasmine
+  Hsu, Julian Ibarz, Brian Ichter, Alex Irpan, Tomas Jackson, Sally Jesmonth,
+  Nikhil~J Joshi, Ryan Julian, Dmitry Kalashnikov, Yuheng Kuang, Isabel Leal,
+  Kuang-Huei Lee, Sergey Levine, Yao Lu, Utsav Malla, Deeksha Manjunath, Igor
+  Mordatch, Ofir Nachum, Carolina Parada, Jodilyn Peralta, Emily Perez, Karl
+  Pertsch, Jornell Quiambao, Kanishka Rao, Michael Ryoo, Grecia Salazar, Pannag
+  Sanketi, Kevin Sayed, Jaspiar Singh, Sumedh Sontakke, Austin Stone, Clayton
+  Tan, Huong Tran, Vincent Vanhoucke, Steve Vega, Quan Vuong, Fei Xia, Ted
+  Xiao, Peng Xu, Sichun Xu, Tianhe Yu, and Brianna Zitkovich.
+\newblock Rt-1: Robotics transformer for real-world control at scale.
+\newblock {\em arXiv preprint arXiv:2212.06817}, 2022.
+
 \bibitem{liu2019roberta}
 Yinhan Liu, Myle Ott, Naman Goyal, Jingfei Du, Mandar Joshi, Danqi Chen, Omer
   Levy, Mike Lewis, Luke Zettlemoyer, and Veselin Stoyanov.

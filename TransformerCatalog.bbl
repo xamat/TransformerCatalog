@@ -459,4 +459,10 @@ Tianyang Lin, Yuxin Wang, Xiangyang Liu, and Xipeng Qiu.
 \newblock A survey of transformers.
 \newblock {\em AI Open}, 2022.
 
+\bibtem{izacard2022few}
+Izacard, Gautier and Lewis, Patrick and Lomeli, Maria and Hosseini, Lucas and Petroni, Fabio and Schick, Timo and Dwivedi-Yu, Jane and Joulin, Armand and Riedel, Sebastian and Grave, Edouard
+\newblock Few-shot learning with retrieval augmented language models
+\newblock {\em arXiv preprint arXiv:2208.03299}, 2022
+
+
 \end{thebibliography}

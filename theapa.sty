@@ -1,0 +1,1231 @@
+
+%%%%theapa.sty%%%%%%%%
+%$$$ theapa.sty $$$  --- Version 2.5 .1(May 1992)
+%    by Young U. Ryu (young@emx.utexas.edu)
+
+% `theapa' --- `the' `a'`p'`a'.
+% APA (American Psychology Association) Reference Citation for (AmS)LaTeX
+%
+%	- Supported by `theapa.bst' Version 2.5
+%	- For Plain TeX, use `theapa.tex'.
+%	- They are available from:
+%		anonymous@ftp.cc.utexas.edu
+%		pub/young
+
+% Based on the {\it Publication Manual of the American Psychology Association},
+% Third Edition, Fifth Printing, February 1988.
+
+% copyright (C) 1991, 1992.
+%    Young U. Ryu
+% newapa.sty 2.0 - 1991.
+%    Young U. Ryu
+% newapa.sty - copyright (C) 1989, 1990.
+%    Stephen N. Spencer
+% apalike.sty - copyright (C) 1986, 1988.
+%    Susan King and Oren Patashnik
+% ulem.sty - copyright (C) 1989.
+%    Donald Arseneau
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PLEASE, PLEASE, PLEASE READ ALL THE FOLLOWING UPDATE & TUTORIAL NOTES %
+% ^^^^^^  ^^^^^^  ^^^^^^      ^^^       BEFORE YOU REQUEST IMPROVEMENTS.%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%
+% List of User Commands
+%
+%  Citation (Auto Switch: Full -> Short)
+%    - \cite, \citeA, \citeauthor, \citeyear
+%  Enforce Full Citation
+%    - \fullcite, \fullciteA, \fullciteauthor
+%  Enforce Short Citation
+%    - \shortcite, \shortciteA, \shortciteauthor
+%  Change Citation Functuations
+%         including Quotation Marks around Article Titles
+%    - \citepunct
+%  Change Citation Labels
+%    - \citelabels
+%  Underline instead of Italic
+%    - \UnderlinedBemOnly, \UnderlinedEm
+%  Reference and Bibliography Names
+%    - \refname, \bibname
+%  Do not Place Comma before \& in Ref. Sec. When no. of Authors = 2
+%    - \NoCommaBetweenTwoAuthors
+
+% IF YOU ARE A NEW USER, IT'S NOT NECESSARY TO READ UPDATE NOTES;
+% INSTEAD, READ THE TUTORIAL NOTES.
+
+% Version 2.5.1 Update Notes (May 1992)
+%
+%   - A bug in \nocite#1 is fixed.
+%   - A bug in theapa.bst 2.5 is fixed.
+
+% Version 2.5 Update Notes (April 1992)
+%
+%    - Citation macros are rewritten and simplified.
+%         \cite, \citeA, \citeauthor
+%         \fullcite, \fullciteA, \fullciteauthor
+%         \shortcite, \shortciteA, \shortciteauthor
+%         \citeyear
+%
+%      \citeB, \citeC, \fullciteB, \fullciteC, \shortciteB, and
+%      \shortciteC are dropped. But, to maintain compatibility
+%      with Version 2.4:
+%
+%          \citeB = \citeA (also full and short versions)
+%          \citeC = \citeauthor (also full and short versions)
+%
+%    - \BUcase is dropped. It means that BibTeX always
+%      changes cases of article titles.
+%      Thus, \NoTitleCaseChange is dropped.
+%      If you don't want to change cases of article titles,
+%      see Version 2.5 Update Notes in `theapa.bst'.
+%
+%    - APA section heading macros are re-written.
+%      \theapasectioning is dropped.
+%      Refer to the Tutorial Notes [5].
+%
+%    - Three types of seriations are provided:
+%         seriate env.
+%         APAenumerate env.
+%         APAitemize env.
+%      Refer to the Tutorial Notes [6].
+
+% Version 2.4 Update Notes (April 1992)
+%
+%    - In Ref. Sec. (not in citations):
+%         ^^^^^^^^^
+%              Bond, J., & Chen, S. (1983). blah blah blah
+%                      ^
+%      comma is placed before \BBA (i.e. usually \&) even if
+%      no. of authors = 2. (a req. of APA)
+%      If you don't want such commas, use command \NoCommaBetweenTwoAuthors.
+%    - \cite<optional predix note>[optional postfix note]{keys}
+%      is implemented.
+%      The above is same as \fullcite and \shortcite.
+%    - \nocite{aaa,bbb} makes following \cite{aaa}, \cite{bbb}, etc. short.
+%      But, \nocite{*} does not make following \cite{...} short.
+
+% Version 2.3 Update Notes (March 1992)
+%
+%    - theapa.bst 2.3 == theapa.bst 2.2
+%    - A few mistakes in notes and comments are corrected.
+%    - The following is updated:
+%      \citeA{...}, \citeB{...}, and \citeC{...} (together with
+%      full and short versions) result in:
+%
+%              author1, author2, and author3 (year)
+%                                ^^^
+%      while \cite{...} (together with full and short versions) results in:
+%
+%             (author1, author2, & author3, year)
+%                                ^
+%      The above is a requirement of the APA style.
+%
+%    - Thus, \citepunct changed. See note [3].
+%      With \citepunct, one may change the default `&' and `and' to others.
+
+% Version 2.2 Update Notes (March 1992)
+%
+%    - theapa.sty 2.2 == theapa.sty 2.1
+%      But, theapa.bst is improved.
+%      See update notes in `theapa.bst'.
+
+% Version 2.1 Update Notes
+%
+%    \thebibliography and chapter
+%             - \thebibliography generates a chapter heading
+%                 when chapter is defined (e.g., report, book, etc),
+%                 but \theapasectioning is not used.
+%             - Note: \def\refname{Reference}
+%                         `Reference' is the section title
+%                     \def\bibname{Bibliography}
+%                         `Bibliography' is the chapter title
+%
+%    Other Updates
+%             - \notitlecasechange (of Version 2.0) is changed
+%                to \NoTitleCaseChange for the purpose of readability.
+%
+%    Some Bugs Fixed
+%             - \thebibliography is fixed.
+%                 No more `TeX capacity exceeded' error when
+%                 \theapasectioning is used
+
+% Version 2.0 Update Notes (Nov. 1991)
+%
+%    `ulem.sty' (1989) by Donald Arseneau is included
+%             - Underlined book titles, etc. are optionally allowed.
+%             - The general replacement of emphasized texts by
+%               underlined texts is optionally allowed.
+%             - See note [7] B.
+%
+%    Same author, different years
+%             - \cite{Apt,MinA,MinB,Bond}
+%               ===> (Apt, 1989; Minsky, 1967, 1983; Bond, 1991)
+%             - \citeB{Apt,MinA,MinB,Bond}
+%               ===> Apt (1989), Minsky (1967, 1983), Bond (1991)
+%             - \citeC{Apt,MinA,MinB,Bond} or \citeauthor{Apt,MinA,MinB,Bond}
+%               ===> Apt, Minsky, Bond
+%
+%    Automatic switch from full cites to short cites
+%             - According to the APA manual, the very first citation of
+%               a reference item requires the full list of authors; but
+%               following citations of the same reference item require
+%               the short list of authors.
+%             - \cite, \citeA, \citeB, \citeC (or \citeauthor)
+%               ===> switches from full to short cites automatically
+%             - \fullcite, \fullciteA, etc.
+%               ===> enforces full citations
+%             - \shortcite, \shortciteA, etc.
+%               ===> enforces short citations
+%             - note: \citeyear ===> (year, year, ...)
+%                     There are no full or short versions of \citeyear
+%
+%    Case changing option for article titles.
+%             - See note [7] A.
+%
+%    Quotation marks around article titles
+%             - Though the APA manual does not suggest to place
+%               double quotation marks around article titles,
+%               some people like it.
+%             - In that case, a comma (or period) following article
+%               titles must be placed inside quotation marks.
+%             - It can be done by `\citepunct'.
+%               See note [3].
+%
+%    Some Bugs Fixed
+%             - \theapasectioning replaces for \newapasectioning
+%             - \paragraph replaces for \a@paragraph
+%             - \subparagraph replaces for \a@subparagraph
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SEE THE FOLLOWING TUTORIAL NOTES.
+%   1 - theapa.bst and \bibitem entry
+%   2 - citation formats
+%   3 - changing citation functions (if you want)
+%   4 - changing citation labels (if you want)
+%   5 - enforcing APA style section heading (if you want)
+%   6 - APA style seriations
+%   7 - notes (including things not implemented and to be implemented)
+%
+%%%%%
+% [0] Three Parts
+%
+% This file consists of three parts:
+%   Part I   - APA Style Citation
+%   Part II  - Optional APA Style Section Heading and Seriation
+%   Part III - Underline Stuff
+%
+%   - Part I and Part II are completely independent.
+%   - If one does not declare \UnderlinedBemOnly or \UnderlinedEm,
+%     Part I and Part III are independent.
+%   - If one replaces \ULine in Part II with \underbar (or \underline)
+%     Part II and Part III are independent.
+%
+%   - You may remove independent parts without affecting others.
+%
+%%%%%
+% [1] theapa.bst and \bibitem entry
+%
+% The ``theapa.bst'' BibTeX bibliography style creates references with labels:
+%       \protect\BCAY{full author list}{abbrev. author list}{year}
+%
+%%%%%
+% [2] Citation Formats
+%
+% The citations are enclosed within parentheses ``( ... )''
+%     as default. But one may change them using \citepunct.
+% Short author lists use the ``et al.'' construct.
+% These labels are processed by the following LaTeX commands:
+%
+%%%
+% \cite<optional prefix note>[optional notes]{Key(s)}
+%     -> (prefix note Authors, Year, optional notes)
+%     For example: \cite<e.g.\ see>[p.~32]{Apt88}
+%                       => (e.g. see Apt, 1988, p. 32)
+%     -> automatically switches from \fullcite to \shortcite
+% \citeA[optional notes]{keys}
+%     -> automatically switches from \fullciteA to \shortciteA
+% \citeB[optional notes>{keys}
+%     = \citeA
+% \citeauthor{key}
+%     -> automatically switches from \fullciteauthor to \shortciteauthor
+% \citeC{keys}
+%     = \citeauthor{keys}
+% \citeyear[optional notes]{key(s)} -> (Year1, Year2, ...)
+%
+%%%
+% \nocite{aaa,bbb} makes following \cite{aaa}, \cite{bbb}, etc.
+%     short citations.
+% \nocite{*} does not make following \cite{...}, etc. short citations.
+%                 ^^^
+%%%
+% \fullcite<optional prefix note>[optional notes]{Key(s)}
+%     -> (prefix note Authors1, Year1; Authors2, Year2; ..., optional notes)
+% \fullciteA[optional notes]{keys}
+%     -> Authors1 (Year1), ..., AuthorsN (YearN, optional notes)
+% \fullciteB[optional notes]{keys}
+%     = \fullciteA[optional notes]{keys}
+% \fullciteauthor{keys}
+%     -> Authors1, Authors2, ...
+% \fullciteC{keys}
+%     = \fullciteauthor
+%
+%%%
+% The difference between `\shortciteXXX' and `\fullciteXXX':
+% is that `\shortciteXXX' gives `First author et al.'
+% if no. authors >= 3.
+%    
+% \shortcite<optional prefix note>[optional notes]{Key(s)}
+%     -> (prefix note Short Authors1, Year1; ..., optional notes)
+% \shortciteA[optional notes]{keys}
+%     -> Short Authors1 (Year1), ..., Short AuthorsN (YearN, optional notes)
+% \shortciteB[optional notes]{keys}
+%     = \shortciteA[optional notes]{keys}
+% \shortciteauthor{keys}
+%     -> Short Authors1, Short Authors2, ...
+% \shortciteC{keys}
+%     = \shortciteauthor
+%
+%%%%%
+% [3] Changing Citation Punctuations
+%
+% \citepunct{open paren}%
+%           {between authors in parenthesis and ref. sec}%
+%           {between authors in text}%
+%           {between author(s) and year}%
+%           {between citations}%
+%           {before notes}%
+%           {closing paren}%
+%           {open quote for article titles}%
+%           {closing quote for article titles}
+%
+% For example,
+%   \citepunct{[}{and}{\&}{ }{, }{: }{]}{``}{,''}
+%        - use square brackets
+%          `and' between authors in parenthesis and ref. sec.
+%          '&' between authors in text
+%          space between author and year
+%          comma between citations
+%          comma before notes
+%     e.g. [Apt and van Emden 1986, Lloyd 1985: Notes]
+%     e.g. Apt & van Emden [1986]
+%        - ``article title,''  (in double quote marks and comma in them)
+%
+% The default is:
+%   \citepunct{(}{\&}{and}{, }{; }{, }{)}{}{.}
+%
+% Notice spaces around punctuations in \citepunct!!!
+%
+% In Ref. Sec, a comma is placed before \&, even if no. of authors = 2.
+% \NoCommaBetweenTwoAuthors
+%      removes such commas in Ref. Sec.
+%      But, a comma will be still placed before \& if no. of authors >= 3.
+%
+%%%%%
+% [4] Changing Citation Labels
+%
+% \citelabels{editor label}%
+%            {editors label}%
+%            {volume label}%
+%            {number label}%
+%            {edition label}%
+%            {page label}%
+%            {pages label}%
+%            {chapter label}%
+%            {tech. rep. label}
+%
+% For example,
+%   \citelabels{, editor}{, editors}{Volume}{Number}{edition}%
+%              {page}{pages}{chapter}{Technical report}
+%
+% The default is:
+%   \citelabels{ (Ed.)}{ (Eds.)}{Vol.}{No.}{edition}%
+%              {p.}{pp.}{chap.}{Tech.\ rep.}
+%
+% Notice spaces around lables in \citelabels!!!
+%
+%%%%%
+% [5] Enforcing APA Style Section Heading 
+%
+%  A. Place one of the following between \documentstyle[...]{...}
+%     and \begin{document}:
+%
+%        \OneLevelHeading    \TwoLevelHeading   \TwoLevelHeadingA
+%        \ThreeLevelHeading  \FourLevelHeading  \FiveLevelHeading
+%
+%     to enforce APA style section heading.
+%
+%     Read the following notes to understand what they do.
+%
+%  B. The follow 5 levels of APA section headings are defined
+%       \levelone{...}
+%             ^^^   Normalsize, Centered, Uppercase, Boldface
+%       \leveltwo{...}
+%             ^^^   Normalsize, Centered, Boldfaced
+%       \levelthree{...}
+%             ^^^^^ Normalsize, Centered, Underlined
+%       \levelfour{...}
+%             ^^^^  Normalsize, Flushleft, Unindented, Underlined
+%       \levelfive{...}
+%             ^^^^  Normalsize, Flushleft, Indented, Underlined
+%                   followed by texts in the same line
+%
+%     However, you will *not* use \levelone{...}, \leveltwo{...}, etc.
+%     in your document. Instead, you will use \section*[...]{...},
+%      \subsection*[...]{...}, etc. Read the following notes.
+%
+%     Note: According to the APA manual (p. 66), Level One & Two
+%           Headings are NOT boldfaced. To strictly enforce
+%           APA requirements, remove \bf in \levelone and \leveltwo
+%           macros.
+%
+%  C. If you don't like spaces before and after section headings,
+%     modify \b@level@one@skip, \e@level@one@skip,
+%     \b@level@two@skip, \e@level@two@skip, etc.
+%     See comments around their definitions.
+%
+%  D. Level 3, 4, and 5 underlines are placed by \ULine{...}
+%     of ulem.sty ((C) Donald Arseneau) that is attached in the
+%     end of this file. This is because \ULine allows line
+%     breaks, while \underbar{...} and \underline{...} do not,
+%     when the heading is longer than the \textwidth (minus 8em).
+%     If you don't like the way \ULine places underlines,
+%     (1) replace \ULine in \levelthree, \levelfour, and \levelfive macros
+%     with \underbar or \underline. In that case, however, if the heading
+%     is long, LaTeX will complain about overfull \hbox; alternatively
+%     (2) modify and improve `ulem.sty' and send me a copy (thanks).
+%
+%  E. The APA manual suggests 6 ways of using heading levels:
+%     \OneLevelHeading:   \section       = \leveltwo (toc)
+%     \TwoLevelHeading:   \section       = \leveltwo (toc)
+%                         \subsection    = \levelfour (toc)
+%     \TwoLevelHeadingA:  \section       = \leveltwo (toc)
+%                         \subsection    = \levelfive
+%     \ThreeLevelHeading: \section       = \leveltwo (toc)
+%                         \subsection    = \levelfour (toc)
+%                         \subsubsection = \levelfive
+%     \FourLevelHeading:  \section       = \leveltwo (toc)
+%                         \subsection    = \levelthree (toc)
+%                         \subsubsection = \levelfour (toc)
+%                         \paragraph     = \levelfive
+%     \FiveLevelHeading:  \section       = \levelone (toc)
+%                         \subsection    = \leveltwo (toc)
+%                         \subsubsection = \levelthree (toc)
+%                         \paragraph     = \levelfour
+%                         \subparagraph  = \levelfive
+%
+%  F. \section{AAA}: AAA = heading, page head, table of contents
+%     \section*{AAA}: AAA = heading
+%     \section[BBB]{AAA}: AAA = heading; BBB = page head, table of contents
+%
+%     \subsection{AAA}: AAA = heading, table of contents
+%     \subsection*{AAA}: AAA = heading
+%     \subsection[BBB]{AAA}: AAA = heading; BBB = table of contents
+%
+%     (Exception: When \TwoLevelHeadingA is used -
+%      \subsection{AAA}: AAA = heading
+%      \subsection*{AAA} - not allowed
+%      \subsection[BBB]{AAA} - not allowed)
+%     
+%     \subsubsection{AAA}: AAA = heading, table of contents
+%     \subsubsection*{AAA}: AAA = heading
+%     \subsubsection[BBB]{AAA}: AAA = heading; BBB = table of contents
+%
+%     (Exception: When \ThreeLevelHeading is used -
+%      \subsubsection{AAA}: AAA = heading
+%      \subsubsection*{AAA} - not allowed
+%      \subsubsection[BBB]{AAA} - not allowed)
+%
+%     \paragraph{AAA}: AAA = heading
+%
+%     \subparagraph{AAA}: AAA = heading
+%
+%%%%%
+% [6] APA Seriations
+%
+%  A. seriate environment:
+%     For example, the following:
+%
+%        Blah blah blah
+%        \begin{seriate}
+%        \item first item,
+%        \item second item.
+%        \end{seriate}
+%        Blah blah blah
+%
+%      results in:
+%
+%        Blah blah blah (a) first item, (b) second item.  Blah blah blah
+%
+%  B. APAenumerate environment
+%     For example, the following:
+%
+%        Blah blah blah
+%        \begin{APAenumerate}
+%        \item first item ... ... ... continue continue
+%        \item second item ... ... ... continue continue
+%        \end{APAenumerate}
+%        Blah blah blah
+%
+%      results in:
+%
+%        Blah blah blah
+%            1. first item ... ... ...
+%        continue continue
+%            2. second item ... ... ...
+%        continue continue
+%        Blah blah blah
+%
+%  C. APAitemize environment
+%     For example, the following:
+%
+%        Blah blah blah
+%        \begin{APAitemize}
+%        \item first item ... ... ... continue continue
+%        \item second item ... ... ... continue continue
+%        \end{APAitemize}
+%        Blah blah blah
+%
+%      results in:
+%
+%        Blah blah blah
+%            o  first item ... ... ...
+%        continue continue
+%            o  second item ... ... ...
+%        continue continue
+%        Blah blah blah
+%
+%%%%%
+% [7] Others
+%
+%  A. If you use a language other than English,
+%     You probably want to change reference and bibliography names.
+%     Defaults are English names:
+%
+%     e.g. \def\refname{Reference}
+%     e.g. \def\bibname{Bibliography}
+%
+%     Place those definitions on the top of your document or
+%     before \bibliography or \begin{thebibliography}.
+%
+%  B. As default, BibTeX changes cases of article titles.
+%
+%     e.g. Your Entry in xxx.bib: Formal Representation of ZZZ
+%          Your will get:         Formal representation of zzz
+%     e.g. Your Entry in xxx.bib: Formal Representation of {ZZZ}
+%          Your will get:         Formal representation of ZZZ
+%
+%     If you don't want to change cases of article title, see
+%     Version 2.5 Update Notes in `theapa.bst'.
+%
+%  C. `mastersreport', `dbathesis', `eddthesis' added in theapa.bst.
+%      Why? - Some schools also allow master's report as well as
+%              master's thesis.
+%           - DBA (Doctor of Business Administration) and
+%             Ed.D. (Doctor of Education) are also popluar
+%             doctoral degrees.
+%
+%  D. Underlined (not italic) book titles, etc.
+%     - A few journal publication editors and schools,
+%       who do not appreciate new electronic typesetting and
+%       desktop publishing technologies, require underlined
+%       book titles, etc.
+%     - To do this, I included `ulem.sty' (C) 1989 by Donald Arseneau.
+%     - `\UnderlinedBemOnly' underlines book titles, etc. in Reference.
+%       `\UnderlinedEm' replaces emphasized texts by underlined texts
+%                       both in the body and references of your document.
+%
+%  E. Not implemented yet (!): to be implemented soon
+%     - None
+%
+%  F. Not implemented: I don't know if I can do in the near future !!! ;-)
+%     - Same last name but different people
+%
+%          (C. Lewis, 1958; D. Lewis, 1973)
+%           ^               ^
+%  G. NO GUARANTEE, absolutely (You know what I mean.)
+%
+%  H. Bug and/or suggestion reports
+%     - Your bug and/or suggestion report(s) is (are) welcome(d).
+%     - E-mail me:
+%
+%             young@emx.utexas.edu (Internet)
+%             ^^^^^
+%             youngr@utxvm (Bitnet)
+%                  ^
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\typeout{APA Citation (& Optional APA Heading) Style - Version 2.5.1 (5/92)}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% PART I: APA CITATION %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%
+% cite punctuations %
+%%%%%%%%%%%%%%%%%%%%%
+
+\def\BBOP{(}                % open parenthesis
+\def\BBAA{\&}               % between authors in parenthesis and ref. sec.
+\def\BBAB{and}              % between authors in text
+\def\BBAY{, }               % between author(s) and year
+\def\BBC{; }                % between cites
+\def\BBN{, }                % before note
+\def\BBCP{)}                % closing parenthesis
+\def\BBOQ{}                 % open quote for article title
+\def\BBCQ{.}                % closing quote for article title
+%
+\def\BBA{\BBAA}
+%
+\def\citepunct#1#2#3#4#5#6#7#8#9{%
+    \def\BBOP{#1}
+    \def\BBAA{#2}
+    \def\BBAB{#3}
+    \def\BBAY{#4}
+    \def\BBC{#5}
+    \def\BBN{#6}
+    \def\BBCP{#7}
+    \def\BBOQ{#8}
+    \def\BBCQ{#9}
+    \def\BBA{\BBAA}}
+%
+\def\BBACOMMA{,}	   % comma between authors in ref. sec
+                           % when no. of authors = 2
+\def\NoCommaBetweenTwoAuthors{\def\BBACOMMA{}}
+%
+\let\Bem\em
+
+%%%%%%%%%%%%%%%
+% cite labels %
+%%%%%%%%%%%%%%%
+
+\def\BED{ (Ed.)}                % editor
+\def\BEDS{ (Eds.)}              % editors
+\def\BVOL{Vol.}                 % volume name
+\def\BNUM{No.}                  % number name
+\def\BEd{edition}               % edition
+\def\BPG{p.}                    % page
+\def\BPGS{pp.}                  % pages
+\def\BCH{chap.}                 % chapter
+\def\BTR{Tech.\ rep.}           % (default) technical report type name
+
+\def\citelabels#1#2#3#4#5#6#7#8#9{%
+     \def\BED{#1}                % editor
+     \def\BEDS{#2}
+     \def\BVOL{#3}
+     \def\BNUM{#4}
+     \def\BEd{#5}                % edition
+     \def\BPG{#6}
+     \def\BPGS{#7}
+     \def\BCH{#8}
+     \def\BTR{#9}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Upper or Lowercase article titles %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% \BUcase is dropped in theapa.bst Version 2.5.
+% The following three lines are not required in Version 2.5.
+% They are here temporally to maintain some compatibility with
+% Version 2.4; but will be removed in the next revision.
+\def\@Ucase#1{\uppercase{#1}}
+\def\BUcase#1{\lowercase{\@Ucase #1}}
+\def\NoTitleCaseChange{\def\BUcase##1{##1}}
+
+%%%%%%%%%%%%%
+% citations %
+%%%%%%%%%%%%%
+
+\def\@lbibitem[#1]#2{\def\BBA{\BBAA}\item[\@biblabel{#1}]\if@filesw
+      { \def\BBA{\string\BBA}%
+        \def\protect##1{\string ##1\space}\immediate
+        \write\@auxout{\string\bibcite{#2}{#1}}%
+	\def\BBA{\BBAA}}\fi\ignorespaces}
+
+% Year is separately handled by \Y<citation key>
+\def\bibcite#1#2{\global\expandafter\def\csname b@#1\endcsname{#2}% names
+    \global\expandafter\def\csname Y@#1\endcsname{\@year@#2}}% year
+\def\@year@\BCAY#1#2#3{#3}
+
+% first author of a multi-author reference?
+\newif\if@F@cite\@F@citetrue
+
+%
+% \cite<prefix>[postfix]{keys}
+% \fullcite<prefix>[postfix]{keys}
+% \shortcite<prefix>[postfix]{keys}
+%	writes \citation{keys} on .aux
+%	produces (prefix Authors1, Year1; Authors2, Year2; ..., postfix)
+%
+
+\def\cite{\def\BCAY##1##2##3{\BCA{##1}{##2}}%
+    \@ifnextchar<{\@cite}{\@cite<>}}
+
+\def\fullcite{\def\BCAY##1##2##3{\BCA{##1}{##1}}%
+    \@ifnextchar<{\@cite}{\@cite<>}}
+
+\def\shortcite{\def\BCAY##1##2##3{\BCA{##2}{##2}}%
+    \@ifnextchar<{\@cite}{\@cite<>}}
+
+\def\@cite<#1>{\@ifnextchar[{\def\@BBN{\BBN}\@@cite<#1>}%
+                             {\def\@BBN{\ignorespaces}\@@cite<#1>[]}}
+\def\@@cite<#1>[#2]#3{%
+    \if@filesw\immediate\write\@auxout{\string\citation{#3}}\fi%
+    \edef\@citeP{}%
+    \BBOP{\ignorespaces#1\space}%
+    \@for\@citeb:=#3\do{%
+    \@ifundefined{b@\@citeb}%
+     {\expandafter\def\csname b@\@citeb\endcsname{?}%
+      \expandafter\def\csname Y@\@citeb\endcsname{?}%
+      \@warning{Citation `\@citeb' on page \thepage\space undefined}%
+     }%
+     {\@ifundefined{flag@\@citeb}%
+      {\global\expandafter\def\csname flag@\@citeb\endcsname{DUMMY}%
+       \def\BCA##1##2{##1}}%
+      {\def\BCA##1##2{##2}}%
+     }%
+    \edef\B@my@dummy{\csname b@\@citeb\endcsname}%
+    \ifx\@citeP\B@my@dummy%
+        \if@F@cite\@F@citefalse\else{,\ }\fi%
+	\csname Y@\@citeb\endcsname%
+    \else%
+        \if@F@cite\@F@citefalse\else{\BBC}\fi%
+	\edef\@cite@undefined{?}%
+	\ifx\@cite@undefined\B@my@dummy%
+	  \csname Y@\@citeb\endcsname%
+	\else%
+	  \def\BBA{\BBAA}%
+	  \csname b@\@citeb\endcsname\BBAY\csname Y@\@citeb\endcsname%
+        \fi%
+    \fi%
+    \edef\@citeP{\csname b@\@citeb\endcsname}%
+    }{\@BBN #2}\BBCP%
+    \@F@citetrue}
+
+%
+% \citeA[postfix]{keys}
+% \fullciteA[postfix]{keys}
+% \shortciteA[postfix]{keys}
+%	writes \citation{keys} on .aux
+%	produces Authors1 (Year1), ..., AuthorN (YearN, postfix)
+%
+
+\def\citeA{\def\BCAY##1##2##3{\BCA{##1}{##2}}%
+           \@ifnextchar[{\def\@BBN{\BBN}\@citeA}%
+                        {\def\@BBN{\ignorespaces}\@citeA[]}}
+
+\def\fullciteA{\def\BCAY##1##2##3{\BCA{##1}{##1}}%
+           \@ifnextchar[{\def\@BBN{\BBN}\@citeA}%
+                        {\def\@BBN{\ignorespaces}\@citeA[]}}
+
+\def\shortciteA{\def\BCAY##1##2##3{\BCA{##2}{##2}}%
+           \@ifnextchar[{\def\@BBN{\BBN}\@citeA}%
+                        {\def\@BBN{\ignorespaces}\@citeA[]}}
+
+\def\@citeA[#1]#2{%
+    \if@filesw\immediate\write\@auxout{\string\citation{#2}}\fi%
+    \edef\@citeP{}%
+    \@for\@citeb:=#2\do{%
+    \@ifundefined{b@\@citeb}%
+     {\expandafter\def\csname b@\@citeb\endcsname{?}%
+      \expandafter\def\csname Y@\@citeb\endcsname{?}%
+      \@warning{Citation `\@citeb' on page \thepage\space undefined}%
+     }%
+     {\@ifundefined{flag@\@citeb}%
+      {\global\expandafter\def\csname flag@\@citeb\endcsname{DUMMY}%
+       \def\BCA##1##2{##1}}%
+      {\def\BCA##1##2{##2}}%
+     }%
+    \edef\B@my@dummy{\csname b@\@citeb\endcsname}%
+    \ifx\@citeP\B@my@dummy%
+        \if@F@cite\@F@citefalse\else{,\ }\fi%
+	\csname Y@\@citeb\endcsname%
+    \else%
+        \if@F@cite\@F@citefalse\else{\BBCP,\ }\fi%
+        \def\BBA{\BBAB}%
+	\csname b@\@citeb\endcsname\ \BBOP\csname Y@\@citeb\endcsname%
+    \fi%
+    \edef\@citeP{\csname b@\@citeb\endcsname}%
+    }{\@BBN #1}\BBCP%
+    \@F@citetrue}
+
+%
+% \citeauthor{keys}
+% \fullciteauthor{keys}
+% \shortciteauthor{keys}
+%	writes \citation{keys} on .aux
+%	produces Authors1, ..., AuthorN
+%
+
+\def\citeauthor{\def\BCAY##1##2##3{\BCA{##1}{##2}}\@citeauthor}
+
+\def\fullciteauthor{\def\BCAY##1##2##3{\BCA{##1}{##1}}\@citeauthor}
+
+\def\shortciteauthor{\def\BCAY##1##2##3{\BCA{##2}{##2}}\@citeauthor}
+
+\def\@citeauthor#1{%
+    \if@filesw\immediate\write\@auxout{\string\citation{#1}}\fi%
+    \edef\@citeP{}%
+    \@for\@citeb:=#1\do{%
+    \@ifundefined{b@\@citeb}%
+     {\expandafter\def\csname b@\@citeb\endcsname{?}%
+      \expandafter\def\csname Y@\@citeb\endcsname{?}%
+      \@warning{Citation `\@citeb' on page \thepage\space undefined}%
+     }%
+     {\@ifundefined{flag@\@citeb}%
+      {\global\expandafter\def\csname flag@\@citeb\endcsname{DUMMY}%
+       \def\BCA##1##2{##1}}%
+      {\def\BCA##1##2{##2}}%
+     }%
+    \edef\B@my@dummy{\csname b@\@citeb\endcsname}%
+    \ifx\@citeP\B@my@dummy%
+    \else%
+        \if@F@cite\@F@citefalse\else{,\ }\fi%
+        \def\BBA{\BBAB}%
+	\csname b@\@citeb\endcsname%\ \BBOP\csname Y@\@citeb\endcsname%
+    \fi%
+    \edef\@citeP{\csname b@\@citeb\endcsname}%
+    }%
+    \@F@citetrue}
+
+%
+% \citeyear[postfix]{keys}
+%	writes \citation{keys} on .aux
+%	produces (Year1, ..., YearN, postfix)
+%
+
+\def\citeyear{\def\BCAY##1##2##3{}%
+           \@ifnextchar[{\def\@BBN{\BBN}\@citeyear}%
+                        {\def\@BBN{\ignorespaces}\@citeyear[]}}
+
+\def\@citeyear[#1]#2{%
+    \if@filesw\immediate\write\@auxout{\string\citation{#2}}\fi%
+    \edef\@citeP{}%
+    \BBOP\@for\@citeb:=#2\do{%
+    \@ifundefined{b@\@citeb}%
+     {\expandafter\def\csname b@\@citeb\endcsname{?}%
+      \expandafter\def\csname Y@\@citeb\endcsname{?}%
+      \@warning{Citation `\@citeb' on page \thepage\space undefined}%
+     }%
+     {\@ifundefined{flag@\@citeb}%
+      {\global\expandafter\def\csname flag@\@citeb\endcsname{DUMMY}}%
+      {}%
+     }%
+    \edef\B@my@dummy{\csname b@\@citeb\endcsname}%
+    \if@F@cite\@F@citefalse\else{,\ }\fi%
+    \csname Y@\@citeb\endcsname%
+    \edef\@citeP{\csname b@\@citeb\endcsname}%
+    }{\@BBN #1}\BBCP%
+    \@F@citetrue}
+
+\def\nocite#1{\@bsphack%
+    \if@filesw\immediate\write\@auxout{\string\citation{#1}}\fi%
+    \@for\@citeb:=#1\do{%
+    \@ifundefined{b@\@citeb}%
+    {\edef\B@my@dummy{*}%
+     \ifx\@citeb\B@my@dummy\else
+     \@warning{Citation `\@citeb' on page \thepage\space undefined}\fi}%
+    {\global\expandafter\def\csname flag@\@citeb\endcsname{DUMMY}}}%
+    \@esphack}
+
+%
+% To maintain compatibility with Version 2.4
+% \citeB = \citeA
+% \fullciteB = \fullciteA
+% \shortciteB = \shortciteA
+% \citeC = \citeauthor
+% \fullciteC = \fullciteauthor
+% \shortciteC = \shortciteauthor
+
+\let\citeB=\citeA
+\let\fullciteB=\fullciteA
+\let\shortciteB=\shortciteA
+
+\let\citeC=\citeauthor
+\let\fullciteC=\fullciteauthor
+\let\shortciteC=\shortciteauthor
+
+%
+% No labels in the bibliography.
+\def\@biblabel#1{}
+\newskip{\bibleftmargin}
+\bibleftmargin=2.5em
+%
+%\def\refname{Reference}                %<------------------------------------
+%\def\bibname{Bibliography}
+%
+\def\thebibliography#1{%
+     \@ifundefined{chapter}%
+       {\section*{\refname}%
+        \@mkboth{\uppercase{\refname}}{\uppercase{\refname}}
+        \addcontentsline{toc}{section}{\refname}}%
+       {\chapter*{\bibname}%
+        \@mkboth{\uppercase{\bibname}}{\uppercase{\bibname}}
+        \addcontentsline{toc}{chapter}{\bibname}}
+     \list
+     {\relax}{\labelsep=0em
+              \leftmargin=\bibleftmargin
+	      \itemindent=-\bibleftmargin}
+     \def\newblock{\hskip .11em plus .33em minus .07em}
+     \sloppy\clubpenalty4000\widowpenalty4000
+     \sfcode`\.=1000\relax}
+\let\endthebibliography=\endlist
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% PART II: APA SECTION HEADING & SERIATION %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%
+% \apa@startsection{Heading Indent}{Beforeskip}{Afterskip}{Heading}
+%
+\def\apa@startsection#1#2#3{\@startsection{}{}{#1}{#2}{#3}{\relax}*}
+
+%
+% \b@level@LEVEL-NO@skip
+%       Skip before heading: If >= 0, the following par is NOT indented.
+%                            If < 0, it is indented.
+%                            \b@level@LEVEL-NO@skip = vertical skip
+%
+% \e@level@LEVEL-NO@skip
+%       Skip after heading: If > 0, the following par starts in a new line;
+%                               \e@level@LEVEL-NO@skip = vertical skip
+%                           If <= 0, it starts just after the heading;
+%                               \e@level@LEVEL-NO@skip = horizontal skip
+%
+\newskip\b@level@one@skip   \b@level@one@skip=2.5ex plus 1ex minus .2ex
+\newskip\e@level@one@skip   \e@level@one@skip=1.5ex plus .6ex minus .1ex
+\newskip\b@level@two@skip   \b@level@two@skip=2.5ex plus 1ex minus .2ex
+\newskip\e@level@two@skip   \e@level@two@skip=1.5ex plus .6ex minus .1ex
+\newskip\b@level@three@skip \b@level@three@skip=2.0ex plus .8ex minus .2ex
+\newskip\e@level@three@skip \e@level@three@skip=1.5ex plus .6ex minus .1ex
+\newskip\b@level@four@skip  \b@level@four@skip=1.8ex plus .8ex minus .2ex
+\newskip\e@level@four@skip  \e@level@four@skip=1.5ex plus .6ex minus .1ex
+\newskip\b@level@five@skip  \b@level@five@skip=1.8ex plus .8ex minus .2ex
+\newskip\e@level@five@skip  \e@level@five@skip=0ex
+
+%
+% (APA, p. 66)
+% Level One:   Centered Boldface Uppercase Heading
+% Level Two:   Centered Boldface Heading
+% Level Three: Centered Underlined Heading
+% Level Four:  Flushleft Underlined Heading occuping a whole line
+% Level Five:  Intended Underlined Heading followed by texts in the same line
+%
+% NOTE: According to the APA manual, Level One & Two headings are 
+%       NOT boldfaced. If you want to follow the manual strictly,
+%       remove \bf in \levelone and \leveltwo macros.
+%
+\def\levelone#1{\apa@startsection%
+    {\z@}{\b@level@one@skip}{\e@level@one@skip}%
+    {\leftskip4em plus 1fill\rightskip\leftskip\parindent\z@\relax%
+     \bf\uppercase\expandafter{#1}}}	% <- \bf
+\def\leveltwo#1{\apa@startsection%
+    {\z@}{\b@level@two@skip}{\e@level@two@skip}%
+    {\leftskip4em plus 1fill\rightskip\leftskip\parindent\z@\relax%
+     \bf #1}}				% <- \bf
+\def\levelthree#1{\apa@startsection%
+    {\z@}{\b@level@three@skip}{\e@level@three@skip}%
+    {\leftskip4em plus 1fill\rightskip\leftskip\parindent\z@\relax%
+    \ULine{#1}}}
+\def\levelfour#1{\apa@startsection%
+    {\z@}{\b@level@four@skip}{\e@level@four@skip}{\ULine{#1}}}
+\def\levelfive#1{\apa@startsection%
+    {\parindent}{\b@level@five@skip}{\e@level@five@skip}{\ULine{#1}.}}
+
+%
+% Selecting the Levels of Headings (APA, pp. 66-67)
+%
+
+% One Level
+\def\OneLevelHeading{%
+    \def\section{\@ifnextchar*{\@sections}%
+                {\@ifnextchar[{\@sectionb}{\@section}}}%
+    \def\@sections*##1{\leveltwo{##1}}%
+    \def\@sectionb[##1]##2{\leveltwo{##2}%
+        \@mkboth{\uppercase{##1}}{\uppercase{##1}}%
+        \addcontentsline{toc}{section}{##1}}%
+    \def\@section##1{\leveltwo{##1}%
+        \@mkboth{\uppercase{##1}}{\uppercase{##1}}%
+        \addcontentsline{toc}{section}{##1}}%
+}
+
+% Two Levels
+\def\TwoLevelHeading{%
+    \def\section{\@ifnextchar*{\@sections}%
+                {\@ifnextchar[{\@sectionb}{\@section}}}%
+    \def\@sections*##1{\leveltwo{##1}}%
+    \def\@sectionb[##1]##2{\leveltwo{##2}%
+        \@mkboth{\uppercase{##1}}{\uppercase{##1}}%
+        \addcontentsline{toc}{section}{##1}}%
+    \def\@section##1{\leveltwo{##1}%
+        \@mkboth{\uppercase{##1}}{\uppercase{##1}}%
+        \addcontentsline{toc}{section}{##1}}%
+%
+    \def\subsection{\@ifnextchar*{\@subsections}%
+                   {\@ifnextchar[{\@subsectionb}{\@subsection}}}%
+    \def\@subsections*##1{\levelfour{##1}}%
+    \def\@subsectionb[##1]##2{\levelfour{##2}%
+        \addcontentsline{toc}{subsection}{##1}}%
+    \def\@subsection##1{\levelfour{##1}%
+        \addcontentsline{toc}{subsection}{##1}}%
+}
+
+% Two Levels - Variation
+\def\TwoLevelHeadingA{%
+    \def\section{\@ifnextchar*{\@sections}%
+                {\@ifnextchar[{\@sectionb}{\@section}}}%
+    \def\@sections*##1{\leveltwo{##1}}%
+    \def\@sectionb[##1]##2{\leveltwo{##2}%
+        \@mkboth{\uppercase{##1}}{\uppercase{##1}}%
+        \addcontentsline{toc}{section}{##1}}%
+    \def\@section##1{\leveltwo{##1}%
+        \@mkboth{\uppercase{##1}}{\uppercase{##1}}%
+        \addcontentsline{toc}{section}{##1}}%
+%
+    \let\subsection=\levelfive%
+}
+
+% Three Levels
+\def\ThreeLevelHeading{%
+    \def\section{\@ifnextchar*{\@sections}%
+                {\@ifnextchar[{\@sectionb}{\@section}}}%
+    \def\@sections*##1{\leveltwo{##1}}%
+    \def\@sectionb[##1]##2{\leveltwo{##2}%
+        \@mkboth{\uppercase{##1}}{\uppercase{##1}}%
+        \addcontentsline{toc}{section}{##1}}%
+    \def\@section##1{\leveltwo{##1}%
+        \@mkboth{\uppercase{##1}}{\uppercase{##1}}%
+        \addcontentsline{toc}{section}{##1}}%
+%
+    \def\subsection{\@ifnextchar*{\@subsections}%
+                   {\@ifnextchar[{\@subsectionb}{\@subsection}}}%
+    \def\@subsections*##1{\levelfour{##1}}%
+    \def\@subsectionb[##1]##2{\levelfour{##2}%
+        \addcontentsline{toc}{subsection}{##1}}%
+    \def\@subsection##1{\levelfour{##1}%
+        \addcontentsline{toc}{subsection}{##1}}%
+%
+    \let\subsubsection=\levelfive
+% If you want subsubsection headings listed in the table of contents
+% remove the above \let\subsub... and uncomment the following.
+%    \def\subsubsection{\@ifnextchar*{\@subsubsections}%
+%                      {\@ifnextchar[{\@subsubsectionb}{\@subsubsection}}}%
+%    \def\@subsubsections*##1{\levelfive{##1}}%
+%    \def\@subsubsectionb[##1]##2{\levelfive{##2}%
+%        \addcontentsline{toc}{subsubsection}{##1}}%
+%    \def\@subsubsection##1{\levelfive{##1}%
+%        \addcontentsline{toc}{subsubsection}{##1}}%
+}
+
+% Four Levels
+\def\FourLevelHeading{%
+    \def\section{\@ifnextchar*{\@sections}%
+                {\@ifnextchar[{\@sectionb}{\@section}}}%
+    \def\@sections*##1{\leveltwo{##1}}%
+    \def\@sectionb[##1]##2{\leveltwo{##2}%
+        \@mkboth{\uppercase{##1}}{\uppercase{##1}}%
+        \addcontentsline{toc}{section}{##1}}%
+    \def\@section##1{\leveltwo{##1}%
+        \@mkboth{\uppercase{##1}}{\uppercase{##1}}%
+        \addcontentsline{toc}{section}{##1}}%
+%
+    \def\subsection{\@ifnextchar*{\@subsections}%
+                   {\@ifnextchar[{\@subsectionb}{\@subsection}}}%
+    \def\@subsections*##1{\levelthree{##1}}%
+    \def\@subsectionb[##1]##2{\levelthree{##2}%
+        \addcontentsline{toc}{subsection}{##1}}%
+    \def\@subsection##1{\levelthree{##1}%
+        \addcontentsline{toc}{subsection}{##1}}%
+%
+    \def\subsubsection{\@ifnextchar*{\@subsubsections}%
+                      {\@ifnextchar[{\@subsubsectionb}{\@subsubsection}}}%
+    \def\@subsubsections*##1{\levelfour{##1}}%
+    \def\@subsubsectionb[##1]##2{\levelfour{##2}%
+        \addcontentsline{toc}{subsubsection}{##1}}%
+    \def\@subsubsection##1{\levelfour{##1}%
+        \addcontentsline{toc}{subsubsection}{##1}}%
+%
+    \let\paragraph=\levelfive%
+}
+
+% Five Levels
+\def\FiveLevelHeading{%
+    \def\section{\@ifnextchar*{\@sections}%
+                {\@ifnextchar[{\@sectionb}{\@section}}}%
+    \def\@sections*##1{\levelone{##1}}%
+    \def\@sectionb[##1]##2{\levelone{##2}%
+        \@mkboth{\uppercase{##1}}{\uppercase{##1}}%
+        \addcontentsline{toc}{section}{##1}}%
+    \def\@section##1{\levelone{##1}%
+        \@mkboth{\uppercase{##1}}{\uppercase{##1}}%
+        \addcontentsline{toc}{section}{##1}}%
+%
+    \def\subsection{\@ifnextchar*{\@subsections}%
+                   {\@ifnextchar[{\@subsectionb}{\@subsection}}}%
+    \def\@subsections*##1{\leveltwo{##1}}%
+    \def\@subsectionb[##1]##2{\leveltwo{##2}%
+        \addcontentsline{toc}{subsection}{##1}}%
+    \def\@subsection##1{\leveltwo{##1}%
+        \addcontentsline{toc}{subsection}{##1}}%
+%
+    \def\subsubsection{\@ifnextchar*{\@subsubsections}%
+                      {\@ifnextchar[{\@subsubsectionb}{\@subsubsection}}}%
+    \def\@subsubsections*##1{\levelthree{##1}}%
+    \def\@subsubsectionb[##1]##2{\levelthree{##2}%
+        \addcontentsline{toc}{subsubsection}{##1}}%
+    \def\@subsubsection##1{\levelthree{##1}%
+        \addcontentsline{toc}{subsubsection}{##1}}%
+%
+    \let\paragraph=\levelfour%
+    \let\subparagraph=\levelfive%
+}
+
+%
+% Seriations (pp. 66-68): ONE level of seriation only.
+%  \begin{seriate} \item ... \end{seriate}
+%           within a paragraph or sentence
+%  \begin{APAenumerate} \item ... \end{APAenumerate}
+%           at the start of each paragraph in a series
+%           with enumeration
+%  \begin{APAitemize} \item ... \end{APAitemize}
+%           at the start of each paragraph in a series
+%           without enumeration
+%
+
+% Refer to LaTeX book to modify, if you want, spaces before and after of
+%  \begin{...} ... \end{...} or spaces between \item-s.
+\newcounter{APAenum}
+\newskip\@text@par@indent
+\def\APAenumerate{\@text@par@indent\parindent\setbox0\hbox{1. }%
+    \list{\arabic{APAenum}.}{\usecounter{APAenum}
+    \labelwidth\z@\labelsep\z@\leftmargin\z@\parsep\z@
+    \rightmargin\z@\itemsep\z@\topsep\z@\partopsep\z@
+    \itemindent\@text@par@indent\advance\itemindent by\wd0
+    \def\makelabel##1{\hss\llap{##1 }}}}
+\let\endAPAenumerate=\endlist
+
+\def\seriate{\@bsphack\begingroup%
+   \setcounter{APAenum}{0}%
+   \def\item{\addtocounter{APAenum}{1}(\alph{APAenum})\space}%
+   \ignorespaces}
+\def\endseriate{\endgroup\@esphack}
+
+\def\APAitemize{\@text@par@indent\parindent\setbox0\hbox{$\bullet$}%
+    \list{$\bullet$}{%
+    \labelwidth\z@\labelsep.5em\leftmargin\z@\parsep\z@
+    \rightmargin\z@\itemsep\z@\topsep\z@\partopsep\z@
+    \itemindent\@text@par@indent
+    \advance\itemindent by\wd0\advance\itemindent by.5em
+    \def\makelabel##1{\hss\llap{##1}}}}
+\let\endAPAitemize=\endlist
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% PART III: UNDELINE STUFF (ulem.sty) %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ulem.sty - Copyright (c) 1989 by Donald Arseneau                     %
+%                                                                      %
+%  These macros may be freely transmitted, reproduced, or modified for %
+%  non-commercial purposes provided that this notice is left intact.   %
+%  (Donald Arseneau's Copyright Notice)                                %
+%                                                                      %
+%  Comments on macros are removed. Please refer to the ulem.sty file   %
+%  for detailed macros.                                                %
+%                                                                      %
+%  Two ways to underline texts:                                        %
+%     {\ULem Blah Blah Blah}                                           %
+%     ^                    ^                                           %
+%     \ULine{Blah Blah Blah}                                           %
+%           ^              ^                                           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\ULem{\let\em\LA@em
+   \expandafter\UL@on\expandafter{\ifnum0=`}\fi}
+\def\ULine{\bgroup\UL@on}
+\let\LA@em\em
+
+%\let\em\ULem
+%\def\normalem{\let\em\LA@em}
+
+% The above 2 lines are replaced with the following 2 lines by Young Ryu.
+\def\UnderlinedBemOnly{\let\Bem\ULem}
+\def\UnderlinedEm{\let\em\ULem \let\Bem\ULem}
+
+\newbox\UL@hyphenbox
+\newbox\UL@box
+\newcount\UL@spfactor
+\newcount\UL@penalty
+\newskip\UL@skip
+\newdimen\UL@lht
+\newdimen\UL@ldp
+
+\let\LA@space\ \let\LA@hskip\hskip
+
+\def\UL@end*{\relax\relax}
+
+\def\UL@on#1{\leavevmode\everymath{\UL@hrest}\let\-\UL@dischyp
+    \let\ \UL@space \let\hskip\UL@hskip
+    \setbox\UL@box\hbox{(}\UL@ldp\dp\UL@box \UL@lht-\UL@ldp\advance\UL@lht.4\p@
+    \setbox\UL@hyphenbox\hbox{\setbox\UL@box\hbox{-}\UL@putbox}%
+    \UL@word#1\global\UL@spfactor\spacefactor{} \UL@end* }
+
+\let\UL@unegroup\@empty
+
+\def\UL@start{\setbox\UL@box\hbox\bgroup\everyhbox{\UL@hrest}%
+    \let\UL@start\@empty \let\UL@putbox\@empty \let\UL@unegroup\bgroup
+    \kern-3sp\kern3sp}
+
+\def\UL@stop{\global\UL@penalty\lastpenalty
+   \ifdim\lastkern=3sp \egroup
+      \ifdim\wd\UL@box=\z@
+      \else \UL@putbox \fi
+   \else
+      \egroup \UL@putbox
+   \fi\UL@unegroup}
+
+\def\UL@putbox{{\UL@skip\wd\UL@box \advance\UL@skip\UL@pixel
+   \vrule \@height\UL@lht \@depth\UL@ldp \@width\UL@skip
+   \kern-\UL@skip}\box\UL@box
+   \ifnum\UL@penalty=\z@ \else \penalty\UL@penalty \fi}
+
+\def\UL@word#1 {\UL@start#1 \ifx\UL@end#1\egroup
+      \unkern \unskip
+      \spacefactor\UL@spfactor \let\UL@word\egroup
+   \else
+      \ifmmode\else \ifdim\lastskip=\z@\else
+          \global\UL@skip\lastskip \unskip
+          \UL@stop \UL@leaders
+      \fi\fi
+   \fi \UL@word}
+
+\newdimen\UL@pixel \UL@pixel=0.0033333truein
+
+\def\UL@leaders{{\advance \UL@skip \UL@pixel
+   \leaders\hrule \@height\UL@lht \@depth\UL@ldp\LA@hskip\UL@skip
+   \kern-\UL@pixel}}
+
+\def\UL@hskip{\afterassignment\UL@reskip \global\UL@skip}
+
+\def\UL@reskip{\UL@stop \UL@leaders \UL@start}
+
+\def\UL@hrest{\let\hskip\LA@hskip \let\ \LA@space \let\-\UL@dischyp}
+
+\def\UL@space{\LA@space \global\UL@skip\lastskip \unskip \UL@reskip}
+
+\def\UL@dischyp{\penalty\z@
+               \UL@stop \discretionary{\copy\UL@hyphenbox}{}{}\UL@start}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% End of ulem.sty %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
